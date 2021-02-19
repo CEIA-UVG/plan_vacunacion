@@ -1,0 +1,8 @@
+"id_marca","marca","dosis","tiempo_dosis (semanas)","temp_conserv","observaciones"
+1,"Asta Zeneca",2,4,"+2 a +8°C",
+2,"Gamaleya (Sputnik V)",2,3,"+2 a +8°C",
+3,"Pfizer",2,3,"-70°C±10°",
+4,"Moderna",2,4,"-20°C",
+5,"Johnson and Johnson",1,,"+2 a +8°C","En prueba"
+6,"Johnson and Johnson",2,,"+2 a +8°C","En prueba"
+7,"Sinopharm",2,3,"+2 a +8°C",

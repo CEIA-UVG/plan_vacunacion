@@ -43,13 +43,13 @@ import datetime
 import sys
 import getopt
 
-from asignaciones import Asignacion
-from clinicas import readClinicas
-from config import readConfig
+from models.asignaciones import Asignacion
+from models.clinicas import readClinicas
+from models.config import readConfig
 from helper import getAppropriatedate
-from lotes import readLotes
-from pacientes import readPacientes
-from vacunas import readVacunas
+from models.lotes import readLotes
+from models.pacientes import readPacientes
+from models.vacunas import readVacunas
 
 params = None
 
