@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6d667b-fb87-453b-bff7-15e94afdc84e" name="Default Changelist" comment="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño (por limites de github)" />
+    <list default="true" id="fb6d667b-fb87-453b-bff7-15e94afdc84e" name="Default Changelist" comment="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño (por limites de github)">
+      <change afterPath="$PROJECT_DIR$/resources/clinicas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/pacientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/pacientes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/combinado.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/pacientes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/pacientes.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +33,7 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -32,10 +46,11 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\PyCharm\covid19" />
       <recent name="D:\Projects\PyCharm\covid19\models" />
       <recent name="D:\Projects\PyCharm\covid19\models\" />
       <recent name="D:\Projects\PyCharm\covid19\source\" />
@@ -43,19 +58,19 @@
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="covid19" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\jmanc\Anaconda3\envs\covid19\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\Projects\PyCharm\covid19\source\main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -78,6 +93,7 @@
       <updated>1613102000856</updated>
       <workItem from="1613102016648" duration="30276000" />
       <workItem from="1613747726337" duration="4080000" />
+      <workItem from="1613758749374" duration="15001000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring&#10;Agrego los CSV utilizados">
       <created>1613756253817</created>
@@ -100,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613757942939</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño (por limites de github)">
+      <created>1613758970421</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613758970422</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,11 +139,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactoring&#10;Agrego los CSV utilizados" />
     <MESSAGE value="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño" />
     <MESSAGE value="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño (por limites de github)" />
     <option name="LAST_COMMIT_MESSAGE" value="Refactoring,&#10;Agrego los CSV utilizados,&#10;Ejemplos de muestra reducidos en tamaño (por limites de github)" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/covid19$main.coverage" NAME="main Coverage Results" MODIFIED="1613787075070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

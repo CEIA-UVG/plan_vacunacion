@@ -14,10 +14,10 @@ class ConfigParams:
     """
     Guarda los valores leidos de ``config.txt``
     """
-    def __init__(self, numestacionespordependencia, numvacunasporestacionpordia,
-                 tiempoparallevarvacunasaestacion, pesoedad, pesohabita,
-                 pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso,
-                 pesocancer, pesovih, pesorenal):
+    def __init__(self, numestacionespordependencia, numvacunasporestacionpordia, tiempoparallevarvacunasaestacion,
+                 pesoedad, pesohabita, pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso, pesocancer, pesovih,
+                 pesorenal, path_to_files, archivo_pacientes, archivo_lotes, archivo_cargos, archivo_edad, archivo_muni,
+                 archivo_unidades, archivo_vacunas, archivo_clinicas):
         """
         :param numestacionespordependencia: Número de estaciones de vacunación por centro de adscripción.
         :type numestacionespordependencia: integer
@@ -45,6 +45,24 @@ class ConfigParams:
         :type pesovih: integer
         :param pesorenal: Peso que se le asigna a la prioridad de tener alguna enfermedad renal. Debe ser >= 0.
         :type pesorenal: integer
+        :param path_to_files: Folder relativo donde se encuentran los archivos de entrada.
+        :type path_to_files: String
+        :param archivo_pacientes: Nombre del archivo con datos de los pacientes
+        :type archivo_pacientes: String
+        :param archivo_lotes: Nombre del archivo con datos de los lotes
+        :type archivo_lotes: String
+        :param archivo_cargos: Nombre del archivo con datos de los cargos
+        :type archivo_cargos: String
+        :param archivo_edad: Nombre del archivo con datos de las edades
+        :type archivo_edad: String
+        :param archivo_muni: Nombre del archivo con datos de los municipios donde habitan los pacientes
+        :type archivo_muni: String
+        :param archivo_unidades: Nombre del archivo con datos de las unidades de vacunacion
+        :type archivo_unidades: String
+        :param archivo_vacunas: Nombre del archivo con datos de las vacunas
+        :type archivo_vacunas: String
+        :param archivo_clinicas: Nombre del archivo con datos de las clinicas
+        :type archivo_clinicas: String
         """
         self.numEstacionesPorDependencia = numestacionespordependencia
         self.numVacunasPorEstacionPorDia = numvacunasporestacionpordia
@@ -59,6 +77,15 @@ class ConfigParams:
         self.pesoCancer = pesocancer
         self.pesoVih = pesovih
         self.pesoRenal = pesorenal
+        self.path_to_files = path_to_files
+        self.archivo_pacientes = archivo_pacientes
+        self.archivo_clinicas = archivo_clinicas
+        self.archivo_edad = archivo_edad
+        self.archivo_muni = archivo_muni
+        self.archivo_unidades = archivo_unidades
+        self.archivo_vacunas = archivo_vacunas
+        self.archivo_lotes = archivo_lotes
+        self.archivo_cargos = archivo_cargos
 
     def getNumEstacionesPorDepencencia(self):
         """
@@ -151,6 +178,68 @@ class ConfigParams:
         """
         return self.pesoRenal
 
+    def getPathToFiles(self):
+        """
+        :return: path relativo a los archivos de entrada
+        :rtype: String
+        """
+        return self.path_to_files
+
+    def getFileLotes(self):
+        """
+        :return: nombre del archivo de lotes
+        :rtype: String
+        """
+        return self.archivo_lotes
+
+    def getFileVacunas(self):
+        """
+        :return: nombre del archivo de vacunas
+        :rtype: String
+        """
+        return self.archivo_vacunas
+
+    def getFileUnidades(self):
+        """
+        :return: nombre del archivo de unidades
+        :rtype: String
+        """
+        return self.archivo_unidades
+
+    def getFileMuni(self):
+        """
+        :return: nombre del archivo de municipios
+        :rtype: String
+        """
+        return self.archivo_muni
+
+    def getFileEdad(self):
+        """
+        :return: nombre del archivo de edad
+        :rtype: String
+        """
+        return self.archivo_edad
+
+    def getFileClinicas(self):
+        """
+        :return: nombre del archivo de clinicas
+        :rtype: String
+        """
+        return self.archivo_clinicas
+
+    def getFilePacientes(self):
+        """
+        :return: nombre del archivo de pacientes
+        :rtype: String
+        """
+        return self.archivo_pacientes
+
+    def getFileCargos(self):
+        """
+        :return: nombre del archivo de cargos
+        :rtype: String
+        """
+        return self.archivo_cargos
 
 def readConfig(fn):
     """
@@ -178,9 +267,18 @@ def readConfig(fn):
     pesocancer = int(lines[10].split(' ')[0])
     pesovih = int(lines[11].split(' ')[0])
     pesorenal = int(lines[12].split(' ')[0])
+    path_to_files = lines[13].split(' ')[0]
+    archivo_pacientes = lines[14].split(' ')[0]
+    archivo_lotes = lines[15].split(' ')[0]
+    archivo_cargos = lines[16].split(' ')[0]
+    archivo_edad = lines[17].split(' ')[0]
+    archivo_muni = lines[18].split(' ')[0]
+    archivo_unidades = lines[19].split(' ')[0]
+    archivo_vacunas = lines[20].split(' ')[0]
+    archivo_clinicas = lines[21].split(' ')[0]
 
-    result = ConfigParams(numestacionespordependencia, numvacunasporestacionpordia,
-                          tiempoparallevarvacunasaestacion, pesoedad, pesohabita,
-                          pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso,
-                          pesocancer, pesovih, pesorenal)
+    result = ConfigParams(numestacionespordependencia, numvacunasporestacionpordia, tiempoparallevarvacunasaestacion,
+                          pesoedad, pesohabita, pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso, pesocancer,
+                          pesovih, pesorenal, path_to_files, archivo_pacientes, archivo_lotes, archivo_cargos,
+                          archivo_edad, archivo_muni, archivo_unidades, archivo_vacunas, archivo_clinicas)
     return result

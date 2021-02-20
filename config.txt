@@ -1,0 +1,22 @@
+1 #numEstacionesPorDependencia. Si es 0, significa que habrán menos de una estacion por dependencia y estas seran centralizadas, en ese caso el modelo debe cambiar.
+40 #numVacunasPorEstacionPorDia. Es decir, cada paciente toma 12 minutos para vacunar, lo cual incluye preparación de la vacuna, aplicación y entrada y salida del paciente.
+5 #tiempoParaLlevarVacunasAEstacion. Tiempo en días
+1 #peso para prioridad de edad
+1 #peso para prioridad de lugar donde habita
+1 #peso para prioridad de dependencia donde trabaja
+1 #peso para prioridad de cargo
+1 #peso para prioridad de covid
+1 #peso para prioridad de diabetico
+1 #peso para prioridad de peso
+1 #peso para prioridad de cancer
+1 #peso para prioridad de vih
+1 #peso para prioridad de renal
+./resources/ #Path relativo para los archivos de entrada, no utilizar espacios (' ') en el nombre
+pacientes.csv #nombre de archivo donde están los datos de los pacientes
+lote_vacunas.csv #nombre de archivo donde están los datos de los lotes de las vacunas
+prioridadCargos.csv #nombre de archivo donde están los datos de las prioridades de cargo
+prioridadEdad.csv #nombre de archivos donde están los datos de las prioridades de edad
+prioridadMunicipios.csv #nombre de archivo donde están los datos de las prioridades de municipios
+prioridadUnidades.csv #nombre de archivo donde están los datos de las prioridades de las unidades de vacunación
+vacunas.csv #nombre de archivo donde están los datos de las vacunas
+clinicas.csv #nombre de archivo donde están los datos de las clínicas.

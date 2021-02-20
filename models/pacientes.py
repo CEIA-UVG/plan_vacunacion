@@ -11,6 +11,7 @@ Esta clase es utilizada por el programa principal :mod:main.py únicamente al in
 de las pacientes.
 """
 import pandas as pd
+from helper import readPriorityEdad, readPriorityUnidades, readPriorityMunicipios, readPriorityCargos
 
 
 class Paciente:
@@ -157,6 +158,8 @@ def readPacientes(fn, params, verbose=False, debug=False):
 
     :param fn: Ubicación del archivo con la información de los pacientes.
     :type fn: String
+    :para params: Parametros de la configuracion
+    :type params: ConfigParams
     :param verbose: Opcional. Si es verdadero muestra información adicional al correrse.
     :type verbose: Boolean
     :param debug: Opcional. Si es verdadero muestra información útil para la depuración.
@@ -165,6 +168,12 @@ def readPacientes(fn, params, verbose=False, debug=False):
     :rtype: list
     """
     df = pd.read_csv(fn, encoding="latin")
+
+    priorityEdades = readPriorityEdad(params.getPathToFiles()+params.getFileEdad())
+    priorityCargos = readPriorityCargos(params.getPathToFiles()+params.getFileCargos())
+    priorityUnidades = readPriorityUnidades(params.getPathToFiles()+params.getFileUnidades())
+    priorityMunicipios = readPriorityMunicipios(params.getPathToFiles()+params.getFileMuni())
+
     result = {}
     for row in df.iterrows():
         codigo = row[1]['codigo']
@@ -177,6 +186,7 @@ def readPacientes(fn, params, verbose=False, debug=False):
         renglon = row[1]['renglon']
         cargo = row[1]['cargo']
         num_empleado = row[1]['numempleado']
+        codigo_habita = row[1]['codigoHabita']
         depto_habita = row[1]['departamento']
         muni_habita = row[1]['municipio']
         zona_habita = row[1]['zona']
@@ -187,16 +197,36 @@ def readPacientes(fn, params, verbose=False, debug=False):
         codigo_unidad_adscripcion = row[1]['nombreUnidadAdscripcion']
         fase = row[1]['Fase']
         subfase = row[1]['SubFase']
-        covid = int(row[1]['tuvoCovid'])
-        diabetes = int(row[1]['diabetico'])
-        sobrepeso = int(row[1]['sobrepeso'])
-        cancer = int(row[1]['cancer'])
-        vih = int(row[1]['VIH'])
-        renal = int(row[1]['Renal'])
-        priority_edad = int(row[1]['prioridadEdad'])
-        priority_cargo = int(row[1]['prioridadCargo'])
-        priority_habita = int(row[1]['prioridadHabita'])
-        priority_dependencia = int(row[1]['prioridadDependencia'])
+        covid = 1 if row[1]['tuvoCovid'] == "Si" else 0
+        diabetes = 1 if row[1]['diabetico'] == "Si" else 0
+        sobrepeso = 1 if row[1]['sobrepeso'] == "Si" else 0
+        cancer = 1 if row[1]['cancer'] == "Si" else 0
+        vih = 1 if row[1]['VIH'] == "Si" else 0
+        renal = 1 if row[1]['Renal'] == "Si" else 0
+        if edad - edad % 10 in priorityEdades:
+            priority_edad = priorityEdades[edad - edad % 10]
+        else:
+            if debug:
+                print("Advertencia: El paciente "+str(codigo)+" no tiene una edad valida.")
+            priority_edad = 5
+        if cargo in priorityCargos:
+            priority_cargo = priorityCargos[cargo]
+        else:
+            if debug:
+                print("Advertencia: El paciente " + str(codigo) + " no tiene un cargo valido.")
+            priority_cargo = 4
+        if str(depto_habita)+", "+str(muni_habita) in priorityMunicipios:
+            priority_habita = priorityMunicipios[str(depto_habita)+", "+str(muni_habita)]
+        else:
+            if debug:
+                print("Advertencia: Paciente " + str(codigo) + " no tiene un departamento y municipio valido.")
+            priority_habita = 2
+        if codigo_unidad_adscripcion in priorityUnidades:
+            priority_dependencia = priorityUnidades[codigo_unidad_adscripcion]
+        else:
+            if debug:
+                print("Advertencia: El paciente " + str(codigo) + " no tiene una unidad valida")
+            priority_dependencia = 5
         p = Paciente(codigo, nit, nombre, sexo, num_afiliado, fdn, edad, renglon,
                      cargo, num_empleado, depto_habita, muni_habita,
                      zona_habita, direccion, nombre_dependencia, depto_dependencia,

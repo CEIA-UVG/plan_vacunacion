@@ -86,13 +86,13 @@ def main(argv):
               " dias para llevar las vacunas a cada estación")
         print("")
 
-    lista_de_clinicas = readClinicas('combinado.csv', verbose, debug)
-    lista_de_vacunas = readVacunas('vacunas.csv', verbose, debug)
-    lotes = readLotes('lote_vacunas.csv', verbose, debug)
+    lista_de_clinicas = readClinicas(params.getPathToFiles()+params.getFileClinicas(), verbose, debug)
+    lista_de_vacunas = readVacunas(params.getPathToFiles()+params.getFileVacunas(), verbose, debug)
+    lotes = readLotes(params.getPathToFiles()+params.getFileLotes(), verbose, debug)
 
     if verbose:
         print("Leyendo pacientes...")
-    pacientes = readPacientes('fakedata.csv', params, verbose, debug)
+    pacientes = readPacientes(params.getPathToFiles()+params.getFilePacientes(), params, verbose, debug)
 
     for lote in lotes:
         tipo_vacuna = lote.getMarca()
@@ -154,7 +154,7 @@ def main(argv):
     if verbose:
         print("Imprimiendo resultado...")
     asignaciones.sort(key=lambda x: [x.dependencia, x.fecha, x.dosis, x.orden])
-    f = open('asignaciones.csv', 'w')
+    f = open(params.getPathToFiles()+'asignaciones.csv', 'w')
     f.write("IdPaciente,codigoDependencia,tipo_vacuna,Dosis,orden,fecha\n")
     for a in asignaciones:
         f.write(str(a))
