@@ -80,10 +80,10 @@ def main(argv):
 
     if verbose:
         print("Usando " + str(params.getNumEstacionesPorDepencencia()) + " estaciones por dependencia.")
-        print("Usando " + str(params.getNumVacunasPorEstacionPorDia()) +
-              " aplicaciones de vacunas por dia por estación")
-        print("Usando " + str(params.getTiempoParaLlevarVacunasAEstacion()) +
-              " dias para llevar las vacunas a cada estación")
+        #print("Usando " + str(params.getNumVacunasPorEstacionPorDia()) +
+        #      " aplicaciones de vacunas por dia por estación")
+        #print("Usando " + str(params.getTiempoParaLlevarVacunasAEstacion()) +
+        #      " dias para llevar las vacunas a cada estación")
         print("")
 
     lista_de_clinicas = readClinicas(params.getPathToFiles()+params.getFileClinicas(), verbose, debug)
@@ -126,15 +126,13 @@ def main(argv):
                 if left > 0:
                     num_patient = pacientes[clinica.getCodigo()].pop(0).getCodigo()
                     orden = clinica.getN1a() - left + 1
-                    fecha_applicacion_dosis1 = lote.getFecha() + datetime.\
-                        timedelta(days=params.getTiempoParaLlevarVacunasAEstacion())
+                    fecha_applicacion_dosis1 = lote.getFecha() + datetime.timedelta(days=clinica.getTiempo())
                     fecha1 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
-                                                fecha_applicacion_dosis1, params)
+                                                fecha_applicacion_dosis1, params, clinica.getCapacidad())
                     fecha_applicacion_dosis2 = lote.getFecha() + datetime.\
-                        timedelta(days=params.getTiempoParaLlevarVacunasAEstacion()) + datetime.\
-                        timedelta(weeks=tiempo_entre_dosis)
+                        timedelta(days=clinica.getTiempo()) + datetime.timedelta(weeks=tiempo_entre_dosis)
                     fecha2 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
-                                                fecha_applicacion_dosis2, params)
+                                                fecha_applicacion_dosis2, params, clinica.getCapacidad())
                     if fecha1 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
                         vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] = 0
                     if fecha2 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:

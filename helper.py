@@ -11,7 +11,7 @@ import datetime
 import pandas as pd
 
 
-def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, params):
+def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, params, capacidadClinica):
     """
     Devuelve la fecha de aplicación de una vacuna en función de cuantas vacunas se ha puesto desde el inicio de la
     campaña y en función de la capacidad de cada centro de vacunación.
@@ -26,7 +26,7 @@ def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, pa
         if fecha_de_inicio not in vacunas_por_dia_por_clinica[clinica]:
             return fecha_de_inicio
         if vacunas_por_dia_por_clinica[clinica][fecha_de_inicio] < \
-                params.getNumEstacionesPorDepencencia() * params.getNumVacunasPorEstacionPorDia():
+                params.getNumEstacionesPorDepencencia() * capacidadClinica:
             return fecha_de_inicio
         fecha_de_inicio = fecha_de_inicio + datetime.timedelta(days=1)
 
