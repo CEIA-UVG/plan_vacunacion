@@ -9,7 +9,7 @@ Programa Principal (main.py)
     Lynette Garcia,
     Luis Furlan
 
-:Version: 1.0
+:Version: 0.9 beta
 
 Programa para generar orden de aplicacion de vacunas para COVID-19 realizdo por el Centro de
 Estudios en Informática Aplicada (CEIA) de la Universidad del Valle de Guatemala (UVG).
@@ -55,6 +55,13 @@ params = None
 
 
 def areWeDone(d):
+    """
+    Calcula cuantas vacunas faltan por asignar, si es 0 retorna verdadero, sino falso.
+    :param d: Diccionario con llave clinica y valor numero de vacunas que faltan por asignar
+    :type d: dict
+    :return: Verdadero si ya no hay mas vacunas a agregar, Falso sino.
+    :rtype: bool
+    """
     n = 0
     for k in d.keys():
         n += d[k]
@@ -63,8 +70,46 @@ def areWeDone(d):
     return True
 
 
+def computeAsignaciones(lotes, lista_de_clinicas, remaining_vaccines_per_clinic, pacientes, vacunas_por_dia_por_clinica,
+                        lista_de_vacunas, fase):
+    asignaciones = []
+    for lote in lotes:
+        num_vaccines_for_first_dose = lote.getRondas()
+        tiempo_entre_dosis = lista_de_vacunas[lote.getMarca()].getTiempo()
+        while num_vaccines_for_first_dose > 1:
+            for clinica in lista_de_clinicas:
+                left = remaining_vaccines_per_clinic[clinica.getCodigo()]
+                if left > 0:
+                    num_patient = pacientes[clinica.getCodigo()].pop(0).getCodigo()
+                    orden = clinica.getMaxPerPhase(fase) - left + 1
+                    fecha_applicacion_dosis1 = lote.getFecha() + datetime.timedelta(days=clinica.getTiempo())
+                    fecha1 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
+                                                fecha_applicacion_dosis1, params, clinica.getCapacidad())
+                    fecha_applicacion_dosis2 = lote.getFecha() + datetime. \
+                        timedelta(days=clinica.getTiempo()) + datetime.timedelta(weeks=tiempo_entre_dosis)
+                    fecha2 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
+                                                fecha_applicacion_dosis2, params, clinica.getCapacidad())
+                    if fecha1 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
+                        vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] = 0
+                    if fecha2 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
+                        vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] = 0
+                    vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] += 1
+                    vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] += 1
+                    asignacion_dosis1 = Asignacion(str(num_patient), lote.getMarca(), 1, clinica.getCodigo(), orden,
+                                                   fecha1)
+                    asignacion_dosis2 = Asignacion(str(num_patient), lote.getMarca(), 2, clinica.getCodigo(), orden,
+                                                   fecha2)
+                    asignaciones.append(asignacion_dosis1)
+                    asignaciones.append(asignacion_dosis2)
+                    remaining_vaccines_per_clinic[clinica.getCodigo()] -= 1
+                    num_vaccines_for_first_dose -= 1
+            if areWeDone(remaining_vaccines_per_clinic):
+                break
+    return asignaciones
+
+
 def main(argv):
-    verbose = False
+    verbose = True
     debug = False
 
     try:
@@ -80,10 +125,6 @@ def main(argv):
 
     if verbose:
         print("Usando " + str(params.getNumEstacionesPorDepencencia()) + " estaciones por dependencia.")
-        #print("Usando " + str(params.getNumVacunasPorEstacionPorDia()) +
-        #      " aplicaciones de vacunas por dia por estación")
-        #print("Usando " + str(params.getTiempoParaLlevarVacunasAEstacion()) +
-        #      " dias para llevar las vacunas a cada estación")
         print("")
 
     lista_de_clinicas = readClinicas(params.getPathToFiles()+params.getFileClinicas(), verbose, debug)
@@ -104,51 +145,25 @@ def main(argv):
     # find first lote
     lotes.sort(key=lambda x: x.ingreso)
 
-    if verbose:
-        print("Calculando vacunas por clínica...")
-    # compute how many vaccines per clinic (start with capacity)
-    remaining_vaccines_per_clinic = {}
-    vacunas_por_dia_por_clinica = {}
-    for clinica in lista_de_clinicas:
-        remaining_vaccines_per_clinic[clinica.getCodigo()] = clinica.getN1a()
-        vacunas_por_dia_por_clinica[clinica.getCodigo()] = {}
-
-    # start applying first lot, 1 vaccine per clinic, unless the clinic is at its full.
-    if verbose:
-        print("asignando vacunas")
+    fases = ['n1a', 'n1b', 'n1c', 'n2a', 'n2b', 'n2c', 'n2d', 'n3a', 'n4a', 'n4b', 'n4c', 'n4d']
     asignaciones = []
-    for lote in lotes:
-        num_vaccines_for_first_dose = lote.getRondas()
-        tiempo_entre_dosis = lista_de_vacunas[lote.getMarca()].getTiempo()
-        while num_vaccines_for_first_dose > 1:
-            for clinica in lista_de_clinicas:
-                left = remaining_vaccines_per_clinic[clinica.getCodigo()]
-                if left > 0:
-                    num_patient = pacientes[clinica.getCodigo()].pop(0).getCodigo()
-                    orden = clinica.getN1a() - left + 1
-                    fecha_applicacion_dosis1 = lote.getFecha() + datetime.timedelta(days=clinica.getTiempo())
-                    fecha1 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
-                                                fecha_applicacion_dosis1, params, clinica.getCapacidad())
-                    fecha_applicacion_dosis2 = lote.getFecha() + datetime.\
-                        timedelta(days=clinica.getTiempo()) + datetime.timedelta(weeks=tiempo_entre_dosis)
-                    fecha2 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
-                                                fecha_applicacion_dosis2, params, clinica.getCapacidad())
-                    if fecha1 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
-                        vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] = 0
-                    if fecha2 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
-                        vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] = 0
-                    vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] += 1
-                    vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] += 1
-                    asignacion_dosis1 = Asignacion(str(num_patient), lote.getMarca(), 1, clinica.getCodigo(), orden,
-                                                   fecha1)
-                    asignacion_dosis2 = Asignacion(str(num_patient), lote.getMarca(), 2, clinica.getCodigo(), orden,
-                                                   fecha2)
-                    asignaciones.append(asignacion_dosis1)
-                    asignaciones.append(asignacion_dosis2)
-                    remaining_vaccines_per_clinic[clinica.getCodigo()] -= 1
-                    num_vaccines_for_first_dose -= 1
-            if areWeDone(remaining_vaccines_per_clinic):
-                break
+
+    for fase in fases:
+        if verbose:
+            print("Calculando vacunas de la fase " + fase + " por clínica...")
+        # compute how many vaccines per clinic (start with capacity)
+        remaining_vaccines_per_clinic = {}
+        vacunas_por_dia_por_clinica = {}
+        for clinica in lista_de_clinicas:
+            remaining_vaccines_per_clinic[clinica.getCodigo()] = clinica.getMaxPerPhase(fase)
+            vacunas_por_dia_por_clinica[clinica.getCodigo()] = {}
+
+        # start applying first lot, 1 vaccine per clinic, unless the clinic is at its full.
+        if verbose:
+            print("Asignando vacunas para la fase " + fase + "...")
+        asignaciones += computeAsignaciones(lotes, lista_de_clinicas, remaining_vaccines_per_clinic, pacientes,
+                                           vacunas_por_dia_por_clinica, lista_de_vacunas, fase)
+
     if verbose:
         print("Imprimiendo resultado...")
     asignaciones.sort(key=lambda x: [x.dependencia, x.fecha, x.dosis, x.orden])

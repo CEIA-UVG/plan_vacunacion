@@ -319,6 +319,42 @@ class Clinica:
         """
         return self.n4d
 
+    def getMaxPerPhase(self,fase):
+        """
+        Recibe el nombre de la fase y devuelve el numero de vacunas a aplicar en dicha fase.
+        :param fase: Nombre de la fase de vacunacion
+        :type fase: String
+        :return: Numero de vacunas a aplicar en *fase*
+        :rtype: int
+        """
+        if fase == 'n1a':
+            return self.n1a
+        elif fase == 'n1b':
+            return self.n1b
+        elif fase == 'n1c':
+            return self.n1c
+        elif fase == 'n2a':
+            return self.n2a
+        elif fase == 'n2b':
+            return self.n2b
+        elif fase == 'n2c':
+            return self.n2c
+        elif fase == 'n2d':
+            return self.n2d
+        elif fase == 'n3a':
+            return self.n3a
+        elif fase == 'n4a':
+            return self.n4a
+        elif fase == 'n4b':
+            return self.n4b
+        elif fase == 'n4c':
+            return self.n4c
+        elif fase == 'n4d':
+            return self.n4d
+        else:
+            print("ERROR: " + fase + " no es una fase valida!")
+            return -1
+
     def __str__(self):
         return self.name + "\t" + self.departamento + "\t" + self.municipio + "\t" + str(self.capacidad) + "\t" + \
                str(self.tiempo) + "\t" + str(self.n1a) + "\t" + str(self.n1b) + "\t" + str(self.n1c) + "\t" + \
