@@ -46,10 +46,11 @@ import getopt
 from models.asignaciones import Asignacion
 from models.clinicas import readClinicas
 from models.config import readConfig
-from helper import getAppropriatedate
+from helper import getAppropriatedate, excluirPaciente
 from models.lotes import readLotes
 from models.pacientes import readPacientes
 from models.vacunas import readVacunas
+from models.excluidos import readExcluidos
 
 params = None
 
@@ -71,7 +72,7 @@ def areWeDone(d):
 
 
 def computeAsignaciones(lotes, lista_de_clinicas, remaining_vaccines_per_clinic, pacientes, vacunas_por_dia_por_clinica,
-                        lista_de_vacunas, fase):
+                        lista_de_vacunas, fase, excluidos):
     asignaciones = []
     for lote in lotes:
         num_vaccines_for_first_dose = lote.getRondas()
@@ -80,27 +81,38 @@ def computeAsignaciones(lotes, lista_de_clinicas, remaining_vaccines_per_clinic,
             for clinica in lista_de_clinicas:
                 left = remaining_vaccines_per_clinic[clinica.getCodigo()]
                 if left > 0:
+                    # Obtenemos el siguiente paciente para esta clinica
                     num_patient = pacientes[clinica.getCodigo()].pop(0).getCodigo()
+                    # Si el paciente esta en la lista de excluidos lo ignoramos y sacamos el siguiente
+                    while excluirPaciente(num_patient, excluidos):
+                        num_patient = pacientes[clinica.getCodigo()].pop(0).getCodigo()
+                    # Calculamos el orden relativo a esta clinica del paciente
                     orden = clinica.getMaxPerPhase(fase) - left + 1
+                    # Calculamos la fecha de la primera dosis para este paciente en funcion de cuando se recibieron
+                    # las vacunas y a cuantas personas ya hemos vacunado
                     fecha_applicacion_dosis1 = lote.getFecha() + datetime.timedelta(days=clinica.getTiempo())
                     fecha1 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
                                                 fecha_applicacion_dosis1, params, clinica.getCapacidad())
+                    # Calculamos la fecha de la segunda dosis tomando en cuenta el tiempo entre dosis
                     fecha_applicacion_dosis2 = lote.getFecha() + datetime. \
                         timedelta(days=clinica.getTiempo()) + datetime.timedelta(weeks=tiempo_entre_dosis)
                     fecha2 = getAppropriatedate(clinica.getCodigo(), vacunas_por_dia_por_clinica,
                                                 fecha_applicacion_dosis2, params, clinica.getCapacidad())
+                    # Anotamos cuantas vacunas van en el dia de aplicacion
                     if fecha1 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
                         vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] = 0
                     if fecha2 not in vacunas_por_dia_por_clinica[clinica.getCodigo()]:
                         vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] = 0
                     vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha1] += 1
                     vacunas_por_dia_por_clinica[clinica.getCodigo()][fecha2] += 1
+                    # Creamos las asignaciones para ambas dosis
                     asignacion_dosis1 = Asignacion(str(num_patient), lote.getMarca(), 1, clinica.getCodigo(), orden,
                                                    fecha1)
                     asignacion_dosis2 = Asignacion(str(num_patient), lote.getMarca(), 2, clinica.getCodigo(), orden,
                                                    fecha2)
                     asignaciones.append(asignacion_dosis1)
                     asignaciones.append(asignacion_dosis2)
+                    # reducimos el numero de vacunas y el numero de vacunas que tocan por clinica
                     remaining_vaccines_per_clinic[clinica.getCodigo()] -= 1
                     num_vaccines_for_first_dose -= 1
             if areWeDone(remaining_vaccines_per_clinic):
@@ -145,6 +157,10 @@ def main(argv):
     # find first lote
     lotes.sort(key=lambda x: x.ingreso)
 
+    if verbose:
+        print("Leyendo pacientes a excluir de la vacuna...")
+    excluidos = readExcluidos(params.getPathToFiles()+params.getFileExcluidos(), verbose, debug)
+
     fases = ['n1a', 'n1b', 'n1c', 'n2a', 'n2b', 'n2c', 'n2d', 'n3a', 'n4a', 'n4b', 'n4c', 'n4d']
     asignaciones = []
 
@@ -162,7 +178,7 @@ def main(argv):
         if verbose:
             print("Asignando vacunas para la fase " + fase + "...")
         asignaciones += computeAsignaciones(lotes, lista_de_clinicas, remaining_vaccines_per_clinic, pacientes,
-                                           vacunas_por_dia_por_clinica, lista_de_vacunas, fase)
+                                           vacunas_por_dia_por_clinica, lista_de_vacunas, fase, excluidos)
 
     if verbose:
         print("Imprimiendo resultado...")

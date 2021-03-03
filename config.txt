@@ -20,3 +20,4 @@ prioridadMunicipios.csv #nombre de archivo donde están los datos de las priorid
 prioridadUnidades.csv #nombre de archivo donde están los datos de las prioridades de las unidades de vacunación
 vacunas.csv #nombre de archivo donde están los datos de las vacunas
 clinicas.csv #nombre de archivo donde están los datos de las clínicas.
+excluir.csv #nombre de archivo donde están los datos de los pacientes a exlcuir.

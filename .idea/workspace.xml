@@ -5,21 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6d667b-fb87-453b-bff7-15e94afdc84e" name="Default Changelist" comment="removed large file">
-      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/excluidos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/excluir.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/clinicas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/clinicas.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lote_vacunas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lote_vacunas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/pacientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/pacientes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/pacientes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/pacientes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/prioridadCargos.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/prioridadCargos.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/prioridadEdad.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/prioridadEdad.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/prioridadMunicipios.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/prioridadMunicipios.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/prioridadUnidades.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/prioridadUnidades.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/vacunas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/vacunas.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -94,7 +100,7 @@
       <updated>1613102000856</updated>
       <workItem from="1613102016648" duration="30276000" />
       <workItem from="1613747726337" duration="4080000" />
-      <workItem from="1613758749374" duration="31516000" />
+      <workItem from="1613758749374" duration="36893000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring&#10;Agrego los CSV utilizados">
       <created>1613756253817</created>
@@ -181,6 +187,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="removed large file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/covid19$main.coverage" NAME="main Coverage Results" MODIFIED="1614571417526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/covid19$main.coverage" NAME="main Coverage Results" MODIFIED="1614796104792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -164,8 +164,8 @@ def readPacientes(fn, params, verbose=False, debug=False):
     :type verbose: Boolean
     :param debug: Opcional. Si es verdadero muestra información útil para la depuración.
     :type debug: Boolean
-    :return: Lista de Pacientes con las variables leidas del archivo.
-    :rtype: list
+    :return: Diccionario de Pacientes con las variables leidas del archivo.
+    :rtype: dict
     """
     df = pd.read_csv(fn, encoding="latin")
 
