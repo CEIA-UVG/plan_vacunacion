@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb6d667b-fb87-453b-bff7-15e94afdc84e" name="Default Changelist" comment="removed large file">
-      <change afterPath="$PROJECT_DIR$/models/excluidos.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/excluir.csv" afterDir="false" />
+    <list default="true" id="fb6d667b-fb87-453b-bff7-15e94afdc84e" name="Default Changelist" comment="plan chequea lista de excluidos para excluir pacientes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/pacientes.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/pacientes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/pacientes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/pacientes.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +46,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -63,7 +56,29 @@
       <recent name="D:\Projects\PyCharm\covid19\source\" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="Pyinstaller" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\jmanc\Anaconda3\envs\covid19\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="PyInstaller" />
+      <option name="PARAMETERS" value="-y main.py" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -86,6 +101,10 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.Pyinstaller" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -100,7 +119,7 @@
       <updated>1613102000856</updated>
       <workItem from="1613102016648" duration="30276000" />
       <workItem from="1613747726337" duration="4080000" />
-      <workItem from="1613758749374" duration="36893000" />
+      <workItem from="1613758749374" duration="41133000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring&#10;Agrego los CSV utilizados">
       <created>1613756253817</created>
@@ -158,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614741904705</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="plan chequea lista de excluidos para excluir pacientes">
+      <created>1614796769897</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1614796769897</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,9 +210,11 @@
     <MESSAGE value="Capacidad y tiempo que llegan las vacunas es distinto por clinica" />
     <MESSAGE value="Calcula vacunas para todas las fases" />
     <MESSAGE value="removed large file" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed large file" />
+    <MESSAGE value="plan chequea lista de excluidos para excluir pacientes" />
+    <option name="LAST_COMMIT_MESSAGE" value="plan chequea lista de excluidos para excluir pacientes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/covid19$main.coverage" NAME="main Coverage Results" MODIFIED="1614796104792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/covid19$main.coverage" NAME="main Coverage Results" MODIFIED="1614838036890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/covid19$Pyinstaller.coverage" NAME="Pyinstaller Coverage Results" MODIFIED="1614837928577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
