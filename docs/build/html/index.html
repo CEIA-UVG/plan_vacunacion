@@ -5,13 +5,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Índice &#8212; documentación de Plan de Vacunación COVID-19 - 1.0</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Programa Principal (main.py) &#8212; documentación de Plan de Vacunación COVID-19 - 1.0</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <script src="_static/translations.js"></script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" /> 
@@ -22,8 +23,11 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Índice General"
              accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">documentación de Plan de Vacunación COVID-19 - 1.0</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Índice</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Programa Principal (main.py)</a></li> 
       </ul>
     </div>  
 
@@ -32,7 +36,1675 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="indice">
+  <div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-main"></span><div class="section" id="programa-principal-main-py">
+<h1>Programa Principal (main.py)<a class="headerlink" href="#programa-principal-main-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Juan F. Mancilla-Caceres,
+Lynette Garcia,
+Luis Furlan</p>
+</dd>
+<dt class="field-even">Version</dt>
+<dd class="field-even"><p>0.9 beta</p>
+</dd>
+</dl>
+<p>Programa para generar orden de distribución de vacunas (originalmente para COVID-19) realizdo por el Centro de
+Estudios en Informática Aplicada (CEIA) de la Universidad del Valle de Guatemala (UVG).</p>
+<div class="section" id="parametros-de-uso">
+<h2>Parametros de uso<a class="headerlink" href="#parametros-de-uso" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="option-list">
+<dt><kbd><span class="option">-v</span></kbd></dt>
+<dd><p>Si se encuentra presente, el programa desplegará información adicional durante su corrida.</p>
+</dd>
+<dt><kbd><span class="option">-d</span></kbd></dt>
+<dd><p>Si se encuentra presente, el programa desplegará información útil para depurar el programa.</p>
+</dd>
+<dt><kbd><span class="option">-u</span></kbd></dt>
+<dd><p>Si se encuentra preselte, el programa calcula la segunda dosis de vacunas según las personas vacunadas.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="archivos-necesarios-de-entrada">
+<h2>Archivos necesarios de entrada:<a class="headerlink" href="#archivos-necesarios-de-entrada" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>config.txt: Archivo con información necesaria para correr el programa.</p></li>
+<li><p>clinicas.csv: Archivo con información de las clínicas.</p></li>
+<li><p>pacientes.csv: Archivo con información de cada uno de los pacientes a vacunar.</p></li>
+<li><p>lote_vacunas.csv: Archivo con información acerca de los lotes de vacunas.</p></li>
+<li><p>prioridadCargos.csv: Archivo con información acerca de la prioridad respecto a cargos.</p></li>
+<li><p>prioridadEdad.csv: Archivo con información acerca de la prioridad respecto a edad.</p></li>
+<li><p>prioridadMunicipios.csv: Archivo con información acerca de la prioridad respecto a municipios.</p></li>
+<li><p>prioridadUnidades.csv: Archivo con información acerca de la prioridad respecto a unidades.</p></li>
+<li><p>vacunas.csv: Archivo con información acerca de cada vacuna a aplicar.</p></li>
+<li><p>excluir.csv: Archivo con información acerca de pacientes a excluir de la vacunación.</p></li>
+<li><p>vacunados.csv: Archivo con información acerca de que pacientes realmente fueron vacunados.</p></li>
+</ul>
+</div>
+<div class="section" id="archivo-de-salida">
+<h2>Archivo de salida:<a class="headerlink" href="#archivo-de-salida" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>asignaciones.csv conteo de personas por centro y fase a la que pertenecen con fecha de vacunación con prioridad.</p></li>
+<li><p>asignaciones_reales_dosis_2.csv asignación de segunda dosis en función de las personas que fueron realmente vacunadas.</p></li>
+</ul>
+<dl class="py function">
+<dt id="main.areWeDone">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">areWeDone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.areWeDone" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula cuantas vacunas faltan por asignar, si es 0 retorna verdadero, sino falso.
+:param d: Diccionario con llave clinica y valor numero de vacunas que faltan por asignar
+:type d: dict
+:return: Verdadero si ya no hay mas vacunas a agregar, Falso sino.
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.main">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">argv</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.main" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Programa principal que recibe los parametros de entrada y ejecuta el codigo correspondiente.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.runInitialAssignment">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">runInitialAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">debug</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.runInitialAssignment" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Si el programa se corre sin el parametro -u, calcula la distribución de vacunas a utilizar por clínica y paciente.
+Utiliza los datos de la disponibilidad de los lotes de vacunas, la lista de pacientes, sus datos personales, y
+las capacidades de las clínicas para asignar ambas dosis.
+:param verbose: Si es True despliega información adicional mientras corre.
+:type verbose: bool
+:param debug: Si es True despliega información util para la depuración.
+:type debug: bool</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.runUpdate">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">runUpdate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">debug</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.runUpdate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Si el programa se corre con el parametro -u, lee la lista de personas que fueron vacunadas en la realidad (las
+cuales pueden ser distintas a las generadas originalmente) y calcula cuando deben recibir la segunda dosis.</p>
+</dd></dl>
+
+</div>
+</div>
+<span class="target" id="module-models.config"></span><div class="section" id="config-py">
+<h1>config.py<a class="headerlink" href="#config-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos de configuración del programa. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParams</span></code> que guarda todos los valores obtenidos del archivo <code class="docutils literal notranslate"><span class="pre">config.txt</span></code>, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readConfig()</span></code> que lee el archivo <code class="docutils literal notranslate"><span class="pre">config.txt</span></code> y obtiene los valores que se granab en ConfigParams.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores de
+<code class="docutils literal notranslate"><span class="pre">config.txt</span></code>.</p>
+<dl class="py class">
+<dt id="models.config.ConfigParams">
+<em class="property">class </em><code class="sig-prename descclassname">models.config.</code><code class="sig-name descname">ConfigParams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numestacionespordependencia</span></em>, <em class="sig-param"><span class="n">numvacunasporestacionpordia</span></em>, <em class="sig-param"><span class="n">tiempoparallevarvacunasaestacion</span></em>, <em class="sig-param"><span class="n">pesoedad</span></em>, <em class="sig-param"><span class="n">pesohabita</span></em>, <em class="sig-param"><span class="n">pesotrabaja</span></em>, <em class="sig-param"><span class="n">pesocargo</span></em>, <em class="sig-param"><span class="n">pesocovid</span></em>, <em class="sig-param"><span class="n">pesodiabetes</span></em>, <em class="sig-param"><span class="n">pesopeso</span></em>, <em class="sig-param"><span class="n">pesocancer</span></em>, <em class="sig-param"><span class="n">pesovih</span></em>, <em class="sig-param"><span class="n">pesorenal</span></em>, <em class="sig-param"><span class="n">path_to_files</span></em>, <em class="sig-param"><span class="n">archivo_pacientes</span></em>, <em class="sig-param"><span class="n">archivo_lotes</span></em>, <em class="sig-param"><span class="n">archivo_cargos</span></em>, <em class="sig-param"><span class="n">archivo_edad</span></em>, <em class="sig-param"><span class="n">archivo_muni</span></em>, <em class="sig-param"><span class="n">archivo_unidades</span></em>, <em class="sig-param"><span class="n">archivo_vacunas</span></em>, <em class="sig-param"><span class="n">archivo_clinicas</span></em>, <em class="sig-param"><span class="n">archivo_excluidos</span></em>, <em class="sig-param"><span class="n">archivo_vacunados</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda los valores leidos de <code class="docutils literal notranslate"><span class="pre">config.txt</span></code></p>
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileCargos">
+<code class="sig-name descname">getFileCargos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileCargos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de cargos</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileClinicas">
+<code class="sig-name descname">getFileClinicas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileClinicas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de clinicas</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileEdad">
+<code class="sig-name descname">getFileEdad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileEdad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de edad</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileExcluidos">
+<code class="sig-name descname">getFileExcluidos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileExcluidos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de exlcuidos</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileLotes">
+<code class="sig-name descname">getFileLotes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileLotes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de lotes</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileMuni">
+<code class="sig-name descname">getFileMuni</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileMuni" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de municipios</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFilePacientes">
+<code class="sig-name descname">getFilePacientes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFilePacientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de pacientes</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileUnidades">
+<code class="sig-name descname">getFileUnidades</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileUnidades" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de unidades</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileVacunados">
+<code class="sig-name descname">getFileVacunados</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileVacunados" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de vacunados</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getFileVacunas">
+<code class="sig-name descname">getFileVacunas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getFileVacunas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>nombre del archivo de vacunas</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getNumEstacionesPorDepencencia">
+<code class="sig-name descname">getNumEstacionesPorDepencencia</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getNumEstacionesPorDepencencia" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>número de estaciones de vacunación por centro de adscripción</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getNumVacunasPorEstacionPorDia">
+<code class="sig-name descname">getNumVacunasPorEstacionPorDia</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getNumVacunasPorEstacionPorDia" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>número máximo de vacunas que cada centro puede administrar en un día.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPathToFiles">
+<code class="sig-name descname">getPathToFiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPathToFiles" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>path relativo a los archivos de entrada</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoCancer">
+<code class="sig-name descname">getPesoCancer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoCancer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por tener o haber tenido cancer</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoCargo">
+<code class="sig-name descname">getPesoCargo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoCargo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por cargo que ocupa</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoCovid">
+<code class="sig-name descname">getPesoCovid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoCovid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por haber tenido COVID19 previamente</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoDiabetes">
+<code class="sig-name descname">getPesoDiabetes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoDiabetes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por tener diabetes miellitus</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoEdad">
+<code class="sig-name descname">getPesoEdad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoEdad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por edad</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoHabita">
+<code class="sig-name descname">getPesoHabita</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoHabita" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por municipio donde reside.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoPeso">
+<code class="sig-name descname">getPesoPeso</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoPeso" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por tener sobrepeso</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoRenal">
+<code class="sig-name descname">getPesoRenal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoRenal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por tener alguna enfermedad renal</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoTrabaja">
+<code class="sig-name descname">getPesoTrabaja</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoTrabaja" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por lugar donde trabaja</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getPesoVih">
+<code class="sig-name descname">getPesoVih</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getPesoVih" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>peso de la prioridad por ser VIH positivo</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.config.ConfigParams.getTiempoParaLlevarVacunasAEstacion">
+<code class="sig-name descname">getTiempoParaLlevarVacunasAEstacion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.config.ConfigParams.getTiempoParaLlevarVacunasAEstacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>días requeridos para llevar las vacunas a los centros de adscripción.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.config.readConfig">
+<code class="sig-prename descclassname">models.config.</code><code class="sig-name descname">readConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.config.readConfig" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee las variables de configuración del archivo especificado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo <code class="docutils literal notranslate"><span class="pre">config.txt</span></code></p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Objeto ConfigParams con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#models.config.ConfigParams" title="models.config.ConfigParams">ConfigParams</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.lotes"></span><div class="section" id="lotes-py">
+<h1>lotes.py<a class="headerlink" href="#lotes-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de los lotes de vacunas. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Lote</span></code> que guarda todos los valores relevantes a los lotes de vacunas, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readLotes()</span></code> que lee los datos del archivo con la información de los lotes y los graba en una instancia
+de la clase Lote.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de los lotes de vacunas.</p>
+<dl class="py class">
+<dt id="models.lotes.Lote">
+<em class="property">class </em><code class="sig-prename descclassname">models.lotes.</code><code class="sig-name descname">Lote</code><a class="headerlink" href="#models.lotes.Lote" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de un lote: id, fecha de ingreso, marca, cantidad y el número de aplicaciones disponibles.</p>
+<dl class="py method">
+<dt id="models.lotes.Lote.getFecha">
+<code class="sig-name descname">getFecha</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.getFecha" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>La fecha de recepción del lote</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>DateTime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.getMarca">
+<code class="sig-name descname">getMarca</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.getMarca" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>La marca de la vacuna</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.getNum">
+<code class="sig-name descname">getNum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.getNum" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El número de vacunas disponibles en el lote</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.getRondas">
+<code class="sig-name descname">getRondas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.getRondas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El número de aplicaciones posibles, generalmente la mitad del total.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.setId">
+<code class="sig-name descname">setId</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.setId" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>i</strong> (<em>String</em>) – El codigo de identificación del lote</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.setIngreso">
+<code class="sig-name descname">setIngreso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ing</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.setIngreso" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>ing</strong> (<em>String</em>) – La fecha de recepción del lote con formato %d/%m/%Y</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.setMarca">
+<code class="sig-name descname">setMarca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">marca</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.setMarca" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>marca</strong> (<em>String</em>) – La marca de la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.setNum">
+<code class="sig-name descname">setNum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.setNum" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – El número de vacunas recibidas en el lote</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.lotes.Lote.setRondas">
+<code class="sig-name descname">setRondas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.Lote.setRondas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>r</strong> (<em>int</em>) – El número de aplicaciónes de la vacuna disponibles. Depende del tipo de vacuna, generalmente es 2.</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.lotes.readLotes">
+<code class="sig-prename descclassname">models.lotes.</code><code class="sig-name descname">readLotes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.lotes.readLotes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de los lotes disponible en el archivo <em>fn</em> y la guarda en un objeto tipo <code class="xref py py-class docutils literal notranslate"><span class="pre">Lote</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de lotes</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Lista de Lotes con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.vacunas"></span><div class="section" id="vacunas-py">
+<h1>vacunas.py<a class="headerlink" href="#vacunas-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de las vacunas. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Vacuna</span></code> que guarda todos los valores relevantes a las vacunas, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readVacunas()</span></code> que lee los datos del archivo con la información de las vacunas y los graba en una
+instancia de la clase Vacuna.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de las vacunas.</p>
+<dl class="py class">
+<dt id="models.vacunas.Vacuna">
+<em class="property">class </em><code class="sig-prename descclassname">models.vacunas.</code><code class="sig-name descname">Vacuna</code><a class="headerlink" href="#models.vacunas.Vacuna" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de una vacuna: id, marca, número de dosis, tiempo entre dosis, temperatura de almacenamiento y
+observaciones.</p>
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.getDosis">
+<code class="sig-name descname">getDosis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.getDosis" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El número de dosis de la vacuna</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.getId">
+<code class="sig-name descname">getId</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.getId" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El código de identificación de la vacuna</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.getTiempo">
+<code class="sig-name descname">getTiempo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.getTiempo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El número de semanas entre las dosis de la vacuna</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setDosis">
+<code class="sig-name descname">setDosis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dosis</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setDosis" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>dosis</strong> (<em>int</em>) – El número de dosis requerido por la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setId">
+<code class="sig-name descname">setId</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setId" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>i</strong> (<em>String</em>) – El código de identificación único de cada vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setMarca">
+<code class="sig-name descname">setMarca</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">marca</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setMarca" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>marca</strong> (<em>String</em>) – La marca de la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setObs">
+<code class="sig-name descname">setObs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setObs" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>obs</strong> (<em>String</em>) – Cualquier otra información u observación relevante de la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setTemp">
+<code class="sig-name descname">setTemp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">temp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setTemp" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>temp</strong> (<em>Stirng</em>) – La temperatura a la que se debe almacenar la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunas.Vacuna.setTiempo">
+<code class="sig-name descname">setTiempo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tiempo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.Vacuna.setTiempo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>tiempo</strong> (<em>int</em>) – El número de semanas entre las dosis de la vacuna</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.vacunas.readVacunas">
+<code class="sig-prename descclassname">models.vacunas.</code><code class="sig-name descname">readVacunas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunas.readVacunas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de las vacunas disponible en el archivo <em>fn</em> y la guarda en un objeto
+tipo <code class="xref py py-class docutils literal notranslate"><span class="pre">Vacuna</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de las vacunas.</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Lista de Vacunas con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.clinicas"></span><div class="section" id="clinicas-py">
+<h1>clinicas.py<a class="headerlink" href="#clinicas-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de las clínicas / centros de vacunación. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Clinica</span></code> que guarda todos los valores relevantes a las clínicas, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readClinicas()</span></code> que lee los datos del archivo con la información de las clínicas y los graba en una
+instancia de la clase Clinica.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de las clinicas.</p>
+<dl class="py class">
+<dt id="models.clinicas.Clinica">
+<em class="property">class </em><code class="sig-prename descclassname">models.clinicas.</code><code class="sig-name descname">Clinica</code><a class="headerlink" href="#models.clinicas.Clinica" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de una clínica:
+* Nombre de la clínica.
+* Código de la clínica.
+* Departamento donde se encuentra la clínica.
+* Municipio donde se encuentra la clínica.
+* Latitud y Longitud donde se encuentra la clínica.
+* Capacidad de atención de la clínica.
+* Las cantidades de personas por fase y subfase que esta clínica debe atender.</p>
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getCapacidad">
+<code class="sig-name descname">getCapacidad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getCapacidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Capacidad de atención de la clínica</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getCodigo">
+<code class="sig-name descname">getCodigo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getCodigo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Nombre de la clínica</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getMaxPerPhase">
+<code class="sig-name descname">getMaxPerPhase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fase</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getMaxPerPhase" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Recibe el nombre de la fase y devuelve el numero de vacunas a aplicar en dicha fase.
+:param fase: Nombre de la fase de vacunacion
+:type fase: String
+:return: Numero de vacunas a aplicar en <em>fase</em>
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN1a">
+<code class="sig-name descname">getN1a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN1a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 1a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN1b">
+<code class="sig-name descname">getN1b</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN1b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 1b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN1c">
+<code class="sig-name descname">getN1c</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN1c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 1c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN2a">
+<code class="sig-name descname">getN2a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN2a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 2a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN2b">
+<code class="sig-name descname">getN2b</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN2b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 2b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN2c">
+<code class="sig-name descname">getN2c</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN2c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 2c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN2d">
+<code class="sig-name descname">getN2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN2d" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 2d que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN3a">
+<code class="sig-name descname">getN3a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN3a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 3a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN4a">
+<code class="sig-name descname">getN4a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN4a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 4a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN4b">
+<code class="sig-name descname">getN4b</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN4b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 4b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN4c">
+<code class="sig-name descname">getN4c</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN4c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 4c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getN4d">
+<code class="sig-name descname">getN4d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getN4d" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Número de personas de la fase 4d que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getName">
+<code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getName" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Nombre de la clínica</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.getTiempo">
+<code class="sig-name descname">getTiempo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.getTiempo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Tiempo en dias requerido para llevar las vacunas a la clinica.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setCapacidad">
+<code class="sig-name descname">setCapacidad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">capacidad</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setCapacidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>capacidad</strong> – Capacidad de la atención de la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setCodigo">
+<code class="sig-name descname">setCodigo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codigo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setCodigo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>codigo</strong> – Código de la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setDepartamento">
+<code class="sig-name descname">setDepartamento</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">departamento</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setDepartamento" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>departamento</strong> – Departamento donde se ubica la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setLat">
+<code class="sig-name descname">setLat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setLat" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>lat</strong> – Latitud donde se ubica la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setLon">
+<code class="sig-name descname">setLon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lon</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setLon" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>lon</strong> – Longitud donde se ubica la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setMunicipio">
+<code class="sig-name descname">setMunicipio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">municipio</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setMunicipio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>municipio</strong> – Municipio donde se ubica la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN1a">
+<code class="sig-name descname">setN1a</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n1a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN1a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n1a</strong> – Cantidad de personas de la fase 1a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN1b">
+<code class="sig-name descname">setN1b</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n1b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN1b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n1b</strong> – Cantidad de personas de la fase 1b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN1c">
+<code class="sig-name descname">setN1c</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n1c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN1c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n1c</strong> – Cantidad de personas de la fase 1c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN2a">
+<code class="sig-name descname">setN2a</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n2a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN2a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n2a</strong> – Cantidad de personas de la fase 2a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN2b">
+<code class="sig-name descname">setN2b</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n2b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN2b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n2b</strong> – Cantidad de personas de la fase 2b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN2c">
+<code class="sig-name descname">setN2c</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n2c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN2c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n2c</strong> – Cantidad de personas de la fase 2c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN2d">
+<code class="sig-name descname">setN2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n2d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN2d" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n2d</strong> – Cantidad de personas de la fase 2d que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN3a">
+<code class="sig-name descname">setN3a</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n3a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN3a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n3a</strong> – Cantidad de personas de la fase 3a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN4a">
+<code class="sig-name descname">setN4a</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n4a</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN4a" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n4a</strong> – Cantidad de personas de la fase 4a que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN4b">
+<code class="sig-name descname">setN4b</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n4b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN4b" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n4b</strong> – Cantidad de personas de la fase 4b que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN4c">
+<code class="sig-name descname">setN4c</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n4c</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN4c" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n4c</strong> – Cantidad de personas de la fase 4c que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setN4d">
+<code class="sig-name descname">setN4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n4d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setN4d" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>n4d</strong> – Cantidad de personas de la fase 4d que esta clínica debe atender.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setName">
+<code class="sig-name descname">setName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setName" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>name</strong> – Nombre de la clínica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.clinicas.Clinica.setTiempo">
+<code class="sig-name descname">setTiempo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tiempo</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.Clinica.setTiempo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>tiempo</strong> – Tiempo en dias requerido para llevar las vacunas a la clinica</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.clinicas.readClinicas">
+<code class="sig-prename descclassname">models.clinicas.</code><code class="sig-name descname">readClinicas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.clinicas.readClinicas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de las clínicas disponible en el archivo <em>fn</em> y la guarda en un objeto
+tipo <code class="xref py py-class docutils literal notranslate"><span class="pre">Clinica</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de las clinicas.</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Lista de Clinicas con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.asignaciones"></span><div class="section" id="asignaciones-py">
+<h1>asignaciones.py<a class="headerlink" href="#asignaciones-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de las asignaciones de vacunas. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Asignacion</span></code> que guarda todos los valores relevantes a las asignaciones.
+Esta clase es utilizada por el programa principal :mod:main.py al final para devolver los valores acerca
+de las asignaciones que es el resultado final.</p>
+<dl class="py class">
+<dt id="models.asignaciones.Asignacion">
+<em class="property">class </em><code class="sig-prename descclassname">models.asignaciones.</code><code class="sig-name descname">Asignacion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">vacuna</span></em>, <em class="sig-param"><span class="n">dosis</span></em>, <em class="sig-param"><span class="n">dependencia</span></em>, <em class="sig-param"><span class="n">orden</span></em>, <em class="sig-param"><span class="n">fecha</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.asignaciones.Asignacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de una asignación:
+* Código de identificación de la asignación.
+* Código de la vacuna.
+* Número de dosis.
+* Unidad de vacunación donde se utilizará esta vacunación.
+* Orden de prioridad para vacunación.
+* Fecha de vacunación de la asignación.</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.pacientes"></span><div class="section" id="pacientes-py">
+<h1>pacientes.py<a class="headerlink" href="#pacientes-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de los pacientes. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Paciente</span></code> que guarda todos los valores relevantes a los pacientes, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readPacientes()</span></code> que lee los datos del archivo con la información de los pacientes y los graba en una
+instancia de la clase Paciente.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de las pacientes.</p>
+<dl class="py class">
+<dt id="models.pacientes.Paciente">
+<em class="property">class </em><code class="sig-prename descclassname">models.pacientes.</code><code class="sig-name descname">Paciente</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codigo</span></em>, <em class="sig-param"><span class="n">nit</span></em>, <em class="sig-param"><span class="n">nombre</span></em>, <em class="sig-param"><span class="n">sexo</span></em>, <em class="sig-param"><span class="n">numafiliado</span></em>, <em class="sig-param"><span class="n">fdn</span></em>, <em class="sig-param"><span class="n">edad</span></em>, <em class="sig-param"><span class="n">renglon</span></em>, <em class="sig-param"><span class="n">cargo</span></em>, <em class="sig-param"><span class="n">numempleado</span></em>, <em class="sig-param"><span class="n">deptohabita</span></em>, <em class="sig-param"><span class="n">munihabita</span></em>, <em class="sig-param"><span class="n">zonahabita</span></em>, <em class="sig-param"><span class="n">direccion</span></em>, <em class="sig-param"><span class="n">nombredependencia</span></em>, <em class="sig-param"><span class="n">deptodependencia</span></em>, <em class="sig-param"><span class="n">munidependencia</span></em>, <em class="sig-param"><span class="n">codigounidadadscripcion</span></em>, <em class="sig-param"><span class="n">fase</span></em>, <em class="sig-param"><span class="n">subfase</span></em>, <em class="sig-param"><span class="n">covid</span></em>, <em class="sig-param"><span class="n">diabetes</span></em>, <em class="sig-param"><span class="n">sobrepeso</span></em>, <em class="sig-param"><span class="n">cancer</span></em>, <em class="sig-param"><span class="n">vih</span></em>, <em class="sig-param"><span class="n">renal</span></em>, <em class="sig-param"><span class="n">priorityedad</span></em>, <em class="sig-param"><span class="n">prioritycargo</span></em>, <em class="sig-param"><span class="n">priorityhabita</span></em>, <em class="sig-param"><span class="n">prioritydependencia</span></em>, <em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.pacientes.Paciente" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de un paciente:
+* Codigo del paciente.
+* NIT del paciente.
+* Nombre del paciente.
+* Sexo del Paciente.
+* Número de afiliado.
+* Fecha de Nacimiento.
+* Edad del paciente.
+* Renglon de contratación del paciente si disponible.
+* Cargo del paciente.
+* Número de empleado del paciente si disponible.
+* Departamento donde el paciente habita.
+* Municipio donde el paciente habita.
+* Zona donde el paciente habita.
+* Dirección donde el paciente habita.
+* Nombre de la dependencia donde trabaja.
+* Departamento de la dependencia donde trabaja.
+* Municipio de la dependencia donde trabaja.
+* Código de la unidad de vacunación.
+* Fase a la que el paciente pertenece.
+* Subfase a la que el paciente pertenece.
+* Si el paciente ha tenido COVID-19.
+* Si el paciente tiene diabetes miellitus.
+* Si el paciente tiene sobrepeso.
+* Si el paciente ha tenido cancer.
+* Si el paciente es VIH Positivo.
+* Si el paciente tiene enfermedad renal.
+* La prioridad respecto a su edad.
+* La prioridad respecto a su cargo.
+* La prioridad respecto al lugar donde habita.
+* La prioridad respecto al lugar donde trabaja.</p>
+<dl class="py method">
+<dt id="models.pacientes.Paciente.getCodigo">
+<code class="sig-name descname">getCodigo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.pacientes.Paciente.getCodigo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El código de identificación del paciente.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.pacientes.Paciente.getPrioridad">
+<code class="sig-name descname">getPrioridad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.pacientes.Paciente.getPrioridad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>La prioridad en la que la persona debe ser vacunada (entre menor sea el numero mayor prioridad).</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.pacientes.readPacientes">
+<code class="sig-prename descclassname">models.pacientes.</code><code class="sig-name descname">readPacientes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.pacientes.readPacientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de los pacientes disponible en el archivo <em>fn</em> y la guarda en un objeto tipo
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Paciente</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de los pacientes.</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Para params</dt>
+<dd class="field-even"><p>Parametros de la configuracion</p>
+</dd>
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>Diccionario de Pacientes con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.excluidos"></span><div class="section" id="excluidos-py">
+<h1>excluidos.py<a class="headerlink" href="#excluidos-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de los pacientes que no serán vacunados por cualquier razón.
+Contiene la clase <code class="xref py py-class docutils literal notranslate"><span class="pre">Excluido</span></code> que guarda todos los valores relevantes a los pacientes, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readExcluidos()</span></code> que lee los datos del archivo con la información de los pacientes y los graba en una
+instancia de la clase Excluido.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de los pacientes a excluir.</p>
+<dl class="py class">
+<dt id="models.excluidos.Excluido">
+<em class="property">class </em><code class="sig-prename descclassname">models.excluidos.</code><code class="sig-name descname">Excluido</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codigo</span></em>, <em class="sig-param"><span class="n">razon</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.excluidos.Excluido" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de los pacientes a excluir de la vacuna:
+* codigo
+* razón de la exclusión</p>
+<dl class="py method">
+<dt id="models.excluidos.Excluido.getCodigo">
+<code class="sig-name descname">getCodigo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.excluidos.Excluido.getCodigo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El código de identificación del paciente a excluir</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.excluidos.Excluido.getRazon">
+<code class="sig-name descname">getRazon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.excluidos.Excluido.getRazon" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>La razón para excluir al paciente</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.excluidos.readExcluidos">
+<code class="sig-prename descclassname">models.excluidos.</code><code class="sig-name descname">readExcluidos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.excluidos.readExcluidos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de los pacientes a excluir del archivo <em>fn</em> y la guarda en un objeto
+tipo <code class="xref py py-class docutils literal notranslate"><span class="pre">Excluido</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de los pacientes a excluir.</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Lista de Pacientes a excluir con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-models.vacunados"></span><div class="section" id="vacunados-py">
+<h1>vacunados.py<a class="headerlink" href="#vacunados-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Clase encargada de leer y mantener los datos acerca de los pacientes ya vacunados. Consta de una clase llamada
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Vacunado</span></code> que guarda todos los valores relevantes a los pacientes, y el método
+<code class="xref py py-func docutils literal notranslate"><span class="pre">readVacunados()</span></code> que lee los datos del archivo con la información de los pacientes y los graba en una
+instancia de la clase Vacunado.
+Esta clase es utilizada por el programa principal :mod:main.py únicamente al inicio para cargar los valores acerca
+de las pacientes vacunados.</p>
+<dl class="py class">
+<dt id="models.vacunados.Vacunado">
+<em class="property">class </em><code class="sig-prename descclassname">models.vacunados.</code><code class="sig-name descname">Vacunado</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">codigo</span></em>, <em class="sig-param"><span class="n">clinica</span></em>, <em class="sig-param"><span class="n">fecha</span></em>, <em class="sig-param"><span class="n">vacuna</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.Vacunado" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda la información de un paciente vacunado:
+* Código del paciente
+* Clínica de vacunación
+* Fecha de Vacunación
+* Vacuna utilizada</p>
+<dl class="py method">
+<dt id="models.vacunados.Vacunado.getClinica">
+<code class="sig-name descname">getClinica</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.Vacunado.getClinica" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El codigo de la clínica donde el paciente fue vacunado</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunados.Vacunado.getCodigo">
+<code class="sig-name descname">getCodigo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.Vacunado.getCodigo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El codigo del paciente vacunado</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunados.Vacunado.getFecha">
+<code class="sig-name descname">getFecha</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.Vacunado.getFecha" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>La fecha cuando el paciente fue vacunado.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>Datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="models.vacunados.Vacunado.getVacuna">
+<code class="sig-name descname">getVacuna</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.Vacunado.getVacuna" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>El codigo de la vacuna utilizada</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="models.vacunados.readVacunados">
+<code class="sig-prename descclassname">models.vacunados.</code><code class="sig-name descname">readVacunados</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.vacunados.readVacunados" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee la información de los pacientes vacunados disponible en el archivo <em>fn</em> y la guarda en un objeto
+tipo <code class="xref py py-class docutils literal notranslate"><span class="pre">Vacunado</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>String</em>) – Ubicación del archivo con la información de los pacientes vacunados.</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información adicional al correrse.</p></li>
+<li><p><strong>debug</strong> (<em>Boolean</em>) – Opcional. Si es verdadero muestra información útil para la depuración.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>Lista de pacientes vacunados con las variables leidas del archivo.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-helper"></span><div class="section" id="helper-py">
+<h1>helper.py<a class="headerlink" href="#helper-py" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Módulo con funciones de ayuda para obtener las fechas apropiadas de vacunación y las prioridades obtenidas de los
+archivos de entrada.</p>
+<dl class="py function">
+<dt id="helper.excluirPaciente">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">excluirPaciente</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paciente</span></em>, <em class="sig-param"><span class="n">lista_de_pacientes_excluidos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.excluirPaciente" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve verdadero si el paciente se encuentra en la lista de pacientes a excluir
+:param paciente: Paciente para revisar si lo excluimos o no
+:type paciente: Paciente
+:param lista_de_pacientes_excluidos: Lista de pacientes a excluir
+:type lista_de_pacientes_excluidos: list
+:return: Verdadero o falso dependiendo si el paciente se encuentra en la lista
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="helper.getAppropriatedate">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">getAppropriatedate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clinica</span></em>, <em class="sig-param"><span class="n">vacunas_por_dia_por_clinica</span></em>, <em class="sig-param"><span class="n">fecha_de_inicio</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">capacidadClinica</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.getAppropriatedate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la fecha de aplicación de una vacuna en función de cuantas vacunas se ha puesto desde el inicio de la
+campaña y en función de la capacidad de cada centro de vacunación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clinica</strong> – codigo de la clinica</p></li>
+<li><p><strong>vacunas_por_dia_por_clinica</strong> – numero de vacunas que se aplican por dia en la clinica</p></li>
+<li><p><strong>fecha_de_inicio</strong> – fecha de inicio de aplicaciones de la vacuna</p></li>
+<li><p><strong>params</strong> – ConfigParams</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="helper.readPriorityCargos">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">readPriorityCargos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.readPriorityCargos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve un diccionario con los valores de prioridad por cargo leidos del archivo <em>fn</em>
+:param fn: nombre del archivo
+:return: diccionario con prioridades
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="helper.readPriorityEdad">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">readPriorityEdad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.readPriorityEdad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve un diccionario con los valores de prioridad por edad leidos del archivo <em>fn</em>
+:param fn: nombre del archivo
+:return: diccionario con prioridades
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="helper.readPriorityMunicipios">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">readPriorityMunicipios</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.readPriorityMunicipios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve un diccionario con los valores de prioridad por municipio leidos del archivo <em>fn</em>
+:param fn: nombre del archivo
+:return: diccionario con prioridades
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="helper.readPriorityUnidades">
+<code class="sig-prename descclassname">helper.</code><code class="sig-name descname">readPriorityUnidades</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#helper.readPriorityUnidades" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve un diccionario con los valores de prioridad por Unidad leidos del archivo <em>fn</em>
+:param fn: nombre del archivo
+:return: diccionario con prioridades
+:rtype: dict</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indice">
 <h1>Índice<a class="headerlink" href="#indice" title="Enlazar permanentemente con este título">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
@@ -48,6 +1720,26 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Tabla de contenido</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programa Principal (main.py)</a><ul>
+<li><a class="reference internal" href="#parametros-de-uso">Parametros de uso</a></li>
+<li><a class="reference internal" href="#archivos-necesarios-de-entrada">Archivos necesarios de entrada:</a></li>
+<li><a class="reference internal" href="#archivo-de-salida">Archivo de salida:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#config-py">config.py</a></li>
+<li><a class="reference internal" href="#lotes-py">lotes.py</a></li>
+<li><a class="reference internal" href="#vacunas-py">vacunas.py</a></li>
+<li><a class="reference internal" href="#clinicas-py">clinicas.py</a></li>
+<li><a class="reference internal" href="#asignaciones-py">asignaciones.py</a></li>
+<li><a class="reference internal" href="#pacientes-py">pacientes.py</a></li>
+<li><a class="reference internal" href="#excluidos-py">excluidos.py</a></li>
+<li><a class="reference internal" href="#vacunados-py">vacunados.py</a></li>
+<li><a class="reference internal" href="#helper-py">helper.py</a></li>
+<li><a class="reference internal" href="#indice">Índice</a></li>
+</ul>
+
   <div role="note" aria-label="source link">
     <h3>Esta página</h3>
     <ul class="this-page-menu">
@@ -75,13 +1767,16 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Índice General"
              >índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">documentación de Plan de Vacunación COVID-19 - 1.0</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Índice</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Programa Principal (main.py)</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Derechos de autor 2021, CEIA-UVG.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

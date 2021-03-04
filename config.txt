@@ -21,3 +21,4 @@ prioridadUnidades.csv #nombre de archivo donde están los datos de las prioridad
 vacunas.csv #nombre de archivo donde están los datos de las vacunas
 clinicas.csv #nombre de archivo donde están los datos de las clínicas.
 excluir.csv #nombre de archivo donde están los datos de los pacientes a exlcuir.
+vacunados.csv #nombre de archivo donde están los datos de los pacientes que fueron vacunados.

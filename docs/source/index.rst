@@ -22,6 +22,8 @@
    :members:
 .. automodule:: models.excluidos
    :members:
+.. automodule:: models.vacunados
+   :members:
 .. automodule:: helper
    :members:
 
