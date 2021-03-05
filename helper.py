@@ -11,7 +11,7 @@ import datetime
 import pandas as pd
 
 
-def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, params):
+def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, params, capacidadClinica):
     """
     Devuelve la fecha de aplicación de una vacuna en función de cuantas vacunas se ha puesto desde el inicio de la
     campaña y en función de la capacidad de cada centro de vacunación.
@@ -26,7 +26,7 @@ def getAppropriatedate(clinica, vacunas_por_dia_por_clinica, fecha_de_inicio, pa
         if fecha_de_inicio not in vacunas_por_dia_por_clinica[clinica]:
             return fecha_de_inicio
         if vacunas_por_dia_por_clinica[clinica][fecha_de_inicio] < \
-                params.getNumEstacionesPorDepencencia() * params.getNumVacunasPorEstacionPorDia():
+                params.getNumEstacionesPorDepencencia() * capacidadClinica:
             return fecha_de_inicio
         fecha_de_inicio = fecha_de_inicio + datetime.timedelta(days=1)
 
@@ -85,3 +85,19 @@ def readPriorityCargos(fn):
     for row in df.iterrows():
         result[row[1]['cargos']] = int(row[1]['prioridad'])
     return result
+
+
+def excluirPaciente(paciente,lista_de_pacientes_excluidos):
+    """
+    Devuelve verdadero si el paciente se encuentra en la lista de pacientes a excluir
+    :param paciente: Paciente para revisar si lo excluimos o no
+    :type paciente: Paciente
+    :param lista_de_pacientes_excluidos: Lista de pacientes a excluir
+    :type lista_de_pacientes_excluidos: list
+    :return: Verdadero o falso dependiendo si el paciente se encuentra en la lista
+    :rtype: bool
+    """
+    for p in lista_de_pacientes_excluidos:
+        if p.getCodigo() == paciente:
+            return True
+    return False

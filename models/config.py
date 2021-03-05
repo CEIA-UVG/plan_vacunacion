@@ -17,7 +17,7 @@ class ConfigParams:
     def __init__(self, numestacionespordependencia, numvacunasporestacionpordia, tiempoparallevarvacunasaestacion,
                  pesoedad, pesohabita, pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso, pesocancer, pesovih,
                  pesorenal, path_to_files, archivo_pacientes, archivo_lotes, archivo_cargos, archivo_edad, archivo_muni,
-                 archivo_unidades, archivo_vacunas, archivo_clinicas):
+                 archivo_unidades, archivo_vacunas, archivo_clinicas, archivo_excluidos, archivo_vacunados):
         """
         :param numestacionespordependencia: Número de estaciones de vacunación por centro de adscripción.
         :type numestacionespordependencia: integer
@@ -63,6 +63,10 @@ class ConfigParams:
         :type archivo_vacunas: String
         :param archivo_clinicas: Nombre del archivo con datos de las clinicas
         :type archivo_clinicas: String
+        :param archivo_excluidos: Nombre del archivo con datos de los pacientes a excluir
+        :type archivo_excluidos: String
+        :param archivo_vacunados: Nombre del archivo con datos de los pacientes vacunados
+        :type archivo_vacunados: String
         """
         self.numEstacionesPorDependencia = numestacionespordependencia
         self.numVacunasPorEstacionPorDia = numvacunasporestacionpordia
@@ -86,6 +90,8 @@ class ConfigParams:
         self.archivo_vacunas = archivo_vacunas
         self.archivo_lotes = archivo_lotes
         self.archivo_cargos = archivo_cargos
+        self.archivo_excluidos = archivo_excluidos
+        self.archivo_vacunados = archivo_vacunados
 
     def getNumEstacionesPorDepencencia(self):
         """
@@ -241,6 +247,21 @@ class ConfigParams:
         """
         return self.archivo_cargos
 
+    def getFileExcluidos(self):
+        """
+        :return: nombre del archivo de exlcuidos
+        :rtype: String
+        """
+        return self.archivo_excluidos
+
+    def getFileVacunados(self):
+        """
+        :return: nombre del archivo de vacunados
+        :rtype: String
+        """
+        return self.archivo_vacunados
+
+
 def readConfig(fn):
     """
     Lee las variables de configuración del archivo especificado.
@@ -276,9 +297,12 @@ def readConfig(fn):
     archivo_unidades = lines[19].split(' ')[0]
     archivo_vacunas = lines[20].split(' ')[0]
     archivo_clinicas = lines[21].split(' ')[0]
+    archivo_excluidos = lines[22].split(' ')[0]
+    archivo_vacunados = lines[23].split(' ')[0]
 
     result = ConfigParams(numestacionespordependencia, numvacunasporestacionpordia, tiempoparallevarvacunasaestacion,
                           pesoedad, pesohabita, pesotrabaja, pesocargo, pesocovid, pesodiabetes, pesopeso, pesocancer,
                           pesovih, pesorenal, path_to_files, archivo_pacientes, archivo_lotes, archivo_cargos,
-                          archivo_edad, archivo_muni, archivo_unidades, archivo_vacunas, archivo_clinicas)
+                          archivo_edad, archivo_muni, archivo_unidades, archivo_vacunas, archivo_clinicas,
+                          archivo_excluidos, archivo_vacunados)
     return result

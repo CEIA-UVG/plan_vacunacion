@@ -6,20 +6,27 @@
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   .. automodule:: main
-      :members:
-   .. automodule:: config
-      :members:
-   .. automodule:: lotes
-      :members:
-   .. automodule:: vacunas
-      :members:
-   .. automodule:: clinicas
-      :members:
-   .. automodule:: asignaciones
-      :members:
-   .. automodule:: pacientes
-      :members:
+.. automodule:: main
+   :members:
+.. automodule:: models.config
+   :members:
+.. automodule:: models.lotes
+   :members:
+.. automodule:: models.vacunas
+   :members:
+.. automodule:: models.clinicas
+   :members:
+.. automodule:: models.asignaciones
+   :members:
+.. automodule:: models.pacientes
+   :members:
+.. automodule:: models.excluidos
+   :members:
+.. automodule:: models.vacunados
+   :members:
+.. automodule:: helper
+   :members:
+
 
 
 Índice

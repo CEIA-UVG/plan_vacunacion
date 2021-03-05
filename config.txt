@@ -1,6 +1,6 @@
 1 #numEstacionesPorDependencia. Si es 0, significa que habrán menos de una estacion por dependencia y estas seran centralizadas, en ese caso el modelo debe cambiar.
-40 #numVacunasPorEstacionPorDia. Es decir, cada paciente toma 12 minutos para vacunar, lo cual incluye preparación de la vacuna, aplicación y entrada y salida del paciente.
-5 #tiempoParaLlevarVacunasAEstacion. Tiempo en días
+40 #numVacunasPorEstacionPorDia. Deprecada. Es decir, cada paciente toma 12 minutos para vacunar, lo cual incluye preparación de la vacuna, aplicación y entrada y salida del paciente.
+5 #tiempoParaLlevarVacunasAEstacion. Deprecada. Tiempo en días
 1 #peso para prioridad de edad
 1 #peso para prioridad de lugar donde habita
 1 #peso para prioridad de dependencia donde trabaja
@@ -20,3 +20,5 @@ prioridadMunicipios.csv #nombre de archivo donde están los datos de las priorid
 prioridadUnidades.csv #nombre de archivo donde están los datos de las prioridades de las unidades de vacunación
 vacunas.csv #nombre de archivo donde están los datos de las vacunas
 clinicas.csv #nombre de archivo donde están los datos de las clínicas.
+excluir.csv #nombre de archivo donde están los datos de los pacientes a exlcuir.
+vacunados.csv #nombre de archivo donde están los datos de los pacientes que fueron vacunados.

@@ -1,6 +1,3 @@
-id_lote,fecha_ingreso,id_marca,num_vacunas,num_distrib
-1,1/2/2021,3,2000,
-2,15/2/2021,4,10000,
-3,1/3/2021,1,10000,
-4,1/4/2021,4,10000,
-5,1/5/2021,2,10000,
+version https://git-lfs.github.com/spec/v1
+oid sha256:09cfec15b373e6c35ed96ecac38753b39dbfbf6e02da610d0ddfb2f38bc539aa
+size 161

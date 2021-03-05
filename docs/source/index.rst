@@ -8,18 +8,25 @@
    :caption: Contents:
 .. automodule:: main
    :members:
-.. automodule:: config
+.. automodule:: models.config
    :members:
-.. automodule:: lotes
+.. automodule:: models.lotes
    :members:
-.. automodule:: vacunas
+.. automodule:: models.vacunas
    :members:
-.. automodule:: clinicas
+.. automodule:: models.clinicas
    :members:
-.. automodule:: asignaciones
+.. automodule:: models.asignaciones
    :members:
-.. automodule:: pacientes
+.. automodule:: models.pacientes
    :members:
+.. automodule:: models.excluidos
+   :members:
+.. automodule:: models.vacunados
+   :members:
+.. automodule:: helper
+   :members:
+
 
 
 Índice
